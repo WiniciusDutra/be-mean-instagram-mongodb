@@ -1,0 +1,51 @@
+Para inserir dados podemos usar o método .insert() ou o método .save(), passando os dados diretamente como parâmetro ou criando um objeto javaScript e passar este objeto como parâmetro.
+Ex:
+
+vinicius(mongod-2.6.11) test> pokemon = {name: "Caterpie", description: "Larva lutadora", type: "inseto", attack: 30, height: 0.3}
+{
+  "name": "Caterpie",
+  "description": "Larva lutadora",
+  "type": "inseto",
+  "attack": 30,
+  "height": 0.3
+}
+vinicius(mongod-2.6.11) test> db.pokemons.save(pokemon)
+Inserted 1 record(s) in 1ms
+WriteResult({
+  "nInserted": 1
+})
+
+
+Podemos também alterar um documento utilizando o método .save()
+Ex: 
+
+vinicius(mongod-2.6.11) test> query = {name: /caterpie/i}
+
+vinicius(mongod-2.6.11) test> poke = db.pokemons.findOne(query)
+{
+  "_id": ObjectId("58966ca269c90c744012f1ee"),
+  "name": "Caterpie",
+  "description": "Larva lutadora",
+  "type": "inseto",
+  "attack": 30,
+  "height": 0.3
+}
+
+vinicius(mongod-2.6.11) test> poke.defense = 35
+
+vinicius(mongod-2.6.11) test> db.pokemons.save(poke)
+
+
+vinicius(mongod-2.6.11) test> db.pokemons.find(query)
+{
+  "_id": ObjectId("58966ca269c90c744012f1ee"),
+  "name": "Caterpie",
+  "description": "Larva lutadora",
+  "type": "inseto",
+  "attack": 30,
+  "height": 0.3,
+  "defense": 35
+}
+Fetched 1 record(s) in 0ms
+vinicius(mongod-2.6.11) test> 
+
